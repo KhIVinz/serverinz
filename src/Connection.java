@@ -149,6 +149,7 @@ public class Connection extends Thread {
         gui.getRightButton().addActionListener(e -> setCommand("right"));
         gui.getSetSpeed().addActionListener(e -> setCommand("speed"));
         gui.getGetDataButton().addActionListener(e -> setCommand("file"));
+        gui.getStartScanning().addActionListener(e -> setCommand("setfile"));
     }
 
     /**
@@ -195,7 +196,18 @@ public class Connection extends Thread {
                 setCommand(Integer.toString(gui.getSpeed()));
                 readFromClient(client);
                 sendToOneClient(command);
+            }
 
+            if (command.equals("setfile")) {
+                setCommand("lrfinit");
+                readFromClient(client);
+                sendToOneClient(command);
+            }
+
+            if (command.equals("lrfinit")) {
+                setCommand("lrfmeasure");
+                readFromClient(client);
+                sendToOneClient(command);
             }
 
             if (command.equals("file")) {

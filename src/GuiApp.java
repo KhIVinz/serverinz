@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class GuiApp extends JFrame {
@@ -22,6 +24,9 @@ public class GuiApp extends JFrame {
     private JSlider speedController;
     private JLabel stream;
     private MenuFactory menuFactory;
+    private JButton startScanning;
+    private JButton stopScanning;
+    private JButton generateMap;
 
 
     public GuiApp() {
@@ -29,6 +34,7 @@ public class GuiApp extends JFrame {
         setInitialSize();
         decorateFrame();
         createMenuBar();
+        openMapGenerator();
         setContentPane(panelMain);
         IconPanel.setLayout(new BoxLayout(IconPanel, BoxLayout.PAGE_AXIS));
         //pack();
@@ -201,6 +207,38 @@ public class GuiApp extends JFrame {
 
     public void setRobotControlLabel(JLabel robotControlLabel) {
         this.robotControlLabel = robotControlLabel;
+    }
+
+    public JButton getStartScanning() {
+        return startScanning;
+    }
+    public void setStartScanning(JButton startScanning) {
+        this.startScanning = startScanning;
+    }
+
+    public JButton getStopScanning() {
+        return stopScanning;
+    }
+    public void setStopButton(JButton stopScanning) {
+        this.stopScanning = stopScanning;
+    }
+
+    public JButton getGenerateMap() {
+        return generateMap;
+    }
+    public void setGenrateMap(JButton generateMap) {
+        this.generateMap = generateMap;
+    }
+
+
+    public void openMapGenerator() {
+        generateMap.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                new MapGenerator();
+            }
+        });
     }
 
 }
