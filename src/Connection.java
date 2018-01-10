@@ -150,6 +150,10 @@ public class Connection extends Thread {
         gui.getSetSpeed().addActionListener(e -> setCommand("speed"));
         gui.getGetDataButton().addActionListener(e -> setCommand("file"));
         gui.getStartScanning().addActionListener(e -> setCommand("setfile"));
+        gui.getStartScanning().addActionListener(e -> setCommand("lrfinit"));
+        gui.getStartScanning().addActionListener(e -> setCommand("lrfmeasure"));
+        gui.getStopScanning().addActionListener(e -> setCommand("s"));
+        gui.getStopScanning().addActionListener(e -> setCommand("stopscan"));
     }
 
     /**
@@ -202,16 +206,32 @@ public class Connection extends Thread {
                 setCommand("lrfinit");
                 readFromClient(client);
                 sendToOneClient(command);
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             if (command.equals("lrfinit")) {
-                setCommand("lrfmeasure");
+                setCommand("laseron");
                 readFromClient(client);
                 sendToOneClient(command);
             }
 
+            if (command.equals("laseron")) {
+                setCommand("lrfmeasure");
+                readFromClient(client);
+                sendToOneClient(command);
+            }
+            if (command.equals("s")) {
+                setCommand("stopscan");
+                readFromClient(client);
+                sendToOneClient(command);
+                getFile("robot.txt");
+            }
             if (command.equals("file")) {
-                getFile();
+                getFile("test.txt");
             }
 
             readFromClient(client);
@@ -243,11 +263,11 @@ public class Connection extends Thread {
     /**
      * Get file from client
      */
-    private void getFile() {
+    private void getFile(String filename) {
         System.out.println("waiting for file");
 
         try {
-            output = new FileOutputStream("test.txt");
+            output = new FileOutputStream(filename);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

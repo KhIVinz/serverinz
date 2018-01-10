@@ -27,6 +27,7 @@ public class GuiApp extends JFrame {
     private JButton startScanning;
     private JButton stopScanning;
     private JButton generateMap;
+    private JComboBox comboBox1;
 
 
     public GuiApp() {
@@ -112,11 +113,8 @@ public class GuiApp extends JFrame {
                 getConnection().setVisible(true);
                 robotControlLabel.setVisible(false);
                 IconPanel.repaint();
-
             }
-
         }
-
     }
 
     /**
@@ -240,5 +238,4 @@ public class GuiApp extends JFrame {
             }
         });
     }
-
 }
